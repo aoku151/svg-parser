@@ -21,7 +21,7 @@ jobs:
       - name: Extract SVG text and save to file
         run: |
           SVG_CONTENT=$(grep -A100 "### SVG文字列" issue_raw.txt | tail -n +2 | sed '/^$/d')
-          cat <<'EOF' > input.svg
+          cat <<EOF > input.svg
           $SVG_CONTENT
           EOF
 
