@@ -1,4 +1,4 @@
-name: Run Python Script on Issue Attachment
+name: Run Python Script on Issue Input
 
 on:
   issues:
@@ -12,15 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract attachment URL
-        id: extract
+      - name: Extract SVG text from issue
         run: |
-          ATTACH_URL=$(echo "${{ github.event.issue.body }}" | grep -o 'https.*\.svg')
-          echo "ATTACH_URL=$ATTACH_URL" >> $GITHUB_ENV
-
-      - name: Download attachment
-        run: |
-          curl -L "${ATTACH_URL}" -o input.svg
+          echo "${{ github.event.issue.body }}" > input.svg
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -35,7 +29,6 @@ jobs:
           python shift_svg.py input.svg output.svg
 
       - name: Upload artifact
-        id: upload
         uses: actions/upload-artifact@v4
         with:
           name: processed-svg
@@ -46,4 +39,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue comment ${{ github.event.issue.number }} \
-            --body "✅ SVGファイルを処理しました。Actionsページの **Artifacts → processed-svg** からダウンロードできます。"
+            --body "✅ 入力されたSVG文字列を処理しました。Actionsページの **Artifacts → processed-svg** からダウンロードできます。"
