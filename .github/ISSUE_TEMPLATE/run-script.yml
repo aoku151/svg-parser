@@ -1,17 +1,13 @@
 name: "Run Python Script"
-description: "SVGファイルを添付してワークフローを実行します"
+description: "SVG文字列を入力して処理します"
 title: "Run script"
 labels: ["automation"]
 body:
-  - type: input
-    id: note
+  - type: textarea
+    id: svg_text
     attributes:
-      label: "備考"
-      description: "任意でコメントを入力してください"
-      placeholder: "例: ロゴv2"
+      label: "SVG文字列"
+      description: "ここにSVGファイルの中身を直接貼り付けてください"
+      placeholder: "<svg>...</svg>"
     validations:
-      required: false
-
-  - type: markdown
-    attributes:
-      value: "ここに **.svg ファイル** をドラッグ＆ドロップして添付してください。"
+      required: true
