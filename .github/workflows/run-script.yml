@@ -12,9 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract SVG text from issue
+      - name: Save SVG text to file
         run: |
-          echo "${{ github.event.issue.body }}" > input.svg
+          cat <<'EOF' > input.svg
+          ${{ github.event.issue.body }}
+          EOF
 
       - name: Set up Python
         uses: actions/setup-python@v5
