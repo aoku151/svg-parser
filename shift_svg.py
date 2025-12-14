@@ -14,7 +14,7 @@ def parse_translate(transform_str):
 def shift_path(d_attr, dx, dy):
     path = parse_path(d_attr)
     # translate by (-dx, -dy) to cancel out the original transform
-    path = path.translated(-dx - 0j, -dy)
+    path = path.translated(complex(-dx, -dy))
     return path.d()
 
 def process_svg(input_file, output_file):
