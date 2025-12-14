@@ -20,10 +20,15 @@ jobs:
 
       - name: Extract SVG text and save to file
         run: |
-          SVG_CONTENT=$(grep -A100 "### SVG文字列" issue_raw.txt | tail -n +2)
+          SVG_CONTENT=$(grep -A100 "### SVG文字列" issue_raw.txt | tail -n +2 | sed '/^$/d')
           cat <<'EOF' > input.svg
           $SVG_CONTENT
           EOF
+
+      - name: Debug SVG content
+        run: |
+          echo "=== input.svg content ==="
+          cat input.svg
 
       - name: Set up Python
         uses: actions/setup-python@v5
