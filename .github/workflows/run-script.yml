@@ -12,12 +12,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Save SVG text to file
+      - name: Save raw issue body
         run: |
-          # Issue本文から「### SVG文字列」以降を抽出し、見出し行を除去
-          echo "${{ github.event.issue.body }}" > issue_raw.txt
+          cat <<'EOF' > issue_raw.txt
+          ${{ github.event.issue.body }}
+          EOF
+
+      - name: Extract SVG text and save to file
+        run: |
           SVG_CONTENT=$(grep -A100 "### SVG文字列" issue_raw.txt | tail -n +2)
-          # ヒアドキュメントで安全にファイルへ書き込み
           cat <<'EOF' > input.svg
           $SVG_CONTENT
           EOF
