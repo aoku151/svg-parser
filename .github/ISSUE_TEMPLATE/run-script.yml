@@ -6,7 +6,7 @@ body:
   - type: textarea
     id: svg_text
     attributes:
-      label: "SVG文字列"
+      label: ""
       description: "ここにSVGファイルの中身を直接貼り付けてください"
       placeholder: "<svg>...</svg>"
     validations:
