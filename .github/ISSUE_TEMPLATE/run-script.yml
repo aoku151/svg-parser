@@ -1,0 +1,8 @@
+name: "Run Python Script"
+description: "Trigger workflow to run Python script"
+title: "Run script"
+labels: ["automation"]
+body:
+  - type: markdown
+    attributes:
+      value: "SVGファイルを添付してIssueを作成してください。"
