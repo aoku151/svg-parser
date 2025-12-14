@@ -58,6 +58,11 @@ def normalize_svg(input_file: str, output_file: str) -> None:
     root.attrib["width"] = _to_plain_number_str(root.attrib.get("width"), width)
     root.attrib["height"] = _to_plain_number_str(root.attrib.get("height"), height)
 
+    # g 要素の transform を削除
+    for g in root.iter(f"{{{SVG_NS}}}g"):
+        if "transform" in g.attrib:
+            del g.attrib["transform"]
+
     # 出力
     tree.write(output_file, encoding="utf-8", xml_declaration=True)
 
